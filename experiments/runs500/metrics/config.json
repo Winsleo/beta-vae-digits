@@ -1,0 +1,153 @@
+{
+  "task": "P1 beta-VAE binarized digits",
+  "device": "cpu",
+  "cuda_visible_devices": "",
+  "betas": [
+    0.0,
+    0.1,
+    1.0,
+    4.0
+  ],
+  "beta0_still_samples": true,
+  "epochs": 500,
+  "delivered_checkpoint": "epoch_500",
+  "val_used_for_selection": false,
+  "test_used_for_selection": false,
+  "optimizer": "Adam",
+  "lr": 0.001,
+  "batch_size": 128,
+  "adam_defaults": {
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.0
+  },
+  "loss": "batch mean of (sum of 64 pixel BCE-with-logits + beta * sum of 2-d KL)",
+  "train_seed": 42,
+  "data_split_seed": 42,
+  "data_split": "stratified two-stage 60/20/20, both random_state=42, threshold >= 0.5 after /16",
+  "eval_seed": 12345,
+  "mc_samples": 20,
+  "labels_used_in_training": false,
+  "n_train": 1078,
+  "n_val": 359,
+  "n_test": 360,
+  "class_counts": {
+    "train": {
+      "0": 107,
+      "1": 109,
+      "2": 106,
+      "3": 110,
+      "4": 109,
+      "5": 109,
+      "6": 109,
+      "7": 107,
+      "8": 104,
+      "9": 108
+    },
+    "val": {
+      "0": 36,
+      "1": 36,
+      "2": 36,
+      "3": 36,
+      "4": 36,
+      "5": 36,
+      "6": 36,
+      "7": 36,
+      "8": 35,
+      "9": 36
+    },
+    "test": {
+      "0": 35,
+      "1": 37,
+      "2": 35,
+      "3": 37,
+      "4": 36,
+      "5": 37,
+      "6": 36,
+      "7": 36,
+      "8": 35,
+      "9": 36
+    }
+  },
+  "viz": {
+    "recon_test_indices_one_per_digit": [
+      30,
+      1,
+      2,
+      59,
+      41,
+      32,
+      66,
+      44,
+      38,
+      29
+    ],
+    "interp_endpoint_indices": [
+      30,
+      1
+    ],
+    "interp_endpoint_digits": [
+      0,
+      1
+    ],
+    "prior_z_seed": 12345,
+    "prior_count": 16,
+    "interp_steps": 11,
+    "recon_display": "decode(mu), sigmoid probability",
+    "prior_display": "shared prior z, sigmoid probability",
+    "interp_display": "decode of linearly interpolated mu, sigmoid probability",
+    "reused_from": "/vepfs/wangshilong/code/beta-vae-digits/results/latent_codes"
+  },
+  "scatter_xlim": [
+    -14.635175704956055,
+    25.39327049255371
+  ],
+  "scatter_ylim": [
+    -10.721793174743652,
+    23.54426383972168
+  ],
+  "timing": {
+    "cpu_count": 13,
+    "chosen_threads_per_process": 8,
+    "selection_rule": "fixed to P1_NUM_THREADS so the 500-epoch run matches the 100-epoch baseline; thread count was not reselected",
+    "parallel_processes": 4,
+    "approx_total_threads_when_parallel": 32,
+    "epochs": 500
+  },
+  "parallel_train_wall_seconds": 33.724830254912376,
+  "packages": {
+    "python": "3.11.9 (main, Aug 14 2024, 05:07:28) [Clang 18.1.8 ]",
+    "executable": "/vepfs/wangshilong/code/beta-vae-digits/.venv/bin/python",
+    "torch": "2.7.1+cu126",
+    "torch_file": "/vepfs/wangshilong/envs/worldmodel-wan/lib/python3.11/site-packages/torch/__init__.py",
+    "numpy": "2.4.6",
+    "numpy_file": "/vepfs/wangshilong/envs/worldmodel-wan/lib/python3.11/site-packages/numpy/__init__.py",
+    "matplotlib": "3.11.2",
+    "matplotlib_file": "/vepfs/wangshilong/envs/worldmodel-wan/lib/python3.11/site-packages/matplotlib/__init__.py",
+    "scipy": "1.17.1",
+    "scipy_file": "/vepfs/wangshilong/envs/worldmodel-wan/lib/python3.11/site-packages/scipy/__init__.py",
+    "sklearn": "1.9.1",
+    "sklearn_file": "/vepfs/wangshilong/code/beta-vae-digits/.venv/lib/python3.11/site-packages/sklearn/__init__.py"
+  },
+  "reuse": {
+    "interpreter_note": "CPython 3.11.9 already used by .venv-state-trajectory",
+    "reused_site_packages": "/vepfs/wangshilong/envs/worldmodel-wan/lib/python3.11/site-packages",
+    "reused_packages": [
+      "torch",
+      "numpy",
+      "matplotlib",
+      "scipy"
+    ],
+    "installed_into_project_venv": [
+      "scikit-learn",
+      "joblib",
+      "threadpoolctl",
+      "cloudpickle",
+      "narwhals"
+    ],
+    "torch_reinstalled": false
+  }
+}

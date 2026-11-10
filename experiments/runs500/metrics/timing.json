@@ -1,0 +1,21 @@
+{
+  "cpu_count": 13,
+  "chosen_threads_per_process": 8,
+  "selection_rule": "fixed to P1_NUM_THREADS so the 500-epoch run matches the 100-epoch baseline; thread count was not reselected",
+  "parallel_processes": 4,
+  "approx_total_threads_when_parallel": 32,
+  "epochs": 500,
+  "parallel_train_wall_seconds": 33.724830254912376,
+  "per_beta_train_seconds": {
+    "beta0": 25.855231519788504,
+    "beta0p1": 26.74848622456193,
+    "beta1": 26.142524678260088,
+    "beta4": 25.94646030291915
+  },
+  "per_beta_mean_epoch_seconds": {
+    "beta0": 0.051710463039577007,
+    "beta0p1": 0.05349697244912386,
+    "beta1": 0.052285049356520175,
+    "beta4": 0.0518929206058383
+  }
+}

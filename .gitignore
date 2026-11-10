@@ -153,6 +153,8 @@ activemq-data/
 .env
 .envrc
 .venv
+.uv-cache/
+.tmp/
 env/
 venv/
 ENV/
@@ -218,3 +220,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# P1 experiment artifacts: keep on disk, record hashes in experiments/
+# Do not delete these files from the working tree; only leave them untracked.
+models/*.pt
+data/x_all.npy
+data/y_all.npy
+results/figs/
+results/latent_codes/*.npz
+results/latent_codes/*.npy
+!results/latent_codes/shared_prior_z.npy
+
+# Internal control/task notes are not part of the reproducible code record
+p1-volc-task.md
+P1_beta_VAE_review_and_requirements.md

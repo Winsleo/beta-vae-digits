@@ -1,0 +1,570 @@
+{
+  "run_id": "p1-beta-vae-digits-100epoch",
+  "title": "P1 β-VAE binarized digits, 100-epoch last-epoch CPU baseline",
+  "generated_at_timezone": "Asia/Shanghai",
+  "status": "completed, frozen; do not retrain or overwrite",
+  "original_root": "/vepfs/wangshilong/code/beta-vae-digits",
+  "outputs_under": {
+    "models": "/vepfs/wangshilong/code/beta-vae-digits/models",
+    "results": "/vepfs/wangshilong/code/beta-vae-digits/results",
+    "data": "/vepfs/wangshilong/code/beta-vae-digits/data"
+  },
+  "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/",
+  "box_delivered_zip": {
+    "path": "/workspace/exports/p1-beta-vae-final.zip",
+    "sha256": "244ce9f09f6939ea633125c3e36ac5609dc7beb73d559316913992e204a3576a",
+    "must_not_modify": true
+  },
+  "earlier_box_zip_not_the_final_pack": {
+    "path": "/workspace/exports/p1-beta-vae.zip",
+    "sha256": "7297dba0467d8fe67a55c3fb2b1c06a7e760b4778ab4d1535dea71151432d1d8",
+    "must_not_modify": true
+  },
+  "protocol": {
+    "device": "cpu",
+    "cuda_visible_devices": "",
+    "betas": [
+      0.0,
+      0.1,
+      1.0,
+      4.0
+    ],
+    "beta0_still_samples": true,
+    "epochs": 100,
+    "optimizer_steps_per_beta": 900,
+    "steps_per_epoch": 9,
+    "n_train": 1078,
+    "n_val": 359,
+    "n_test": 360,
+    "batch_size": 128,
+    "drop_last": false,
+    "last_batch_size": 54,
+    "optimizer": "Adam",
+    "lr": 0.001,
+    "train_seed": 42,
+    "shuffle_seed_rule": "42+epoch",
+    "data_split_seed": 42,
+    "data_split": "stratified two-stage 60/20/20, both random_state=42, threshold >= 0.5 after /16",
+    "eval_seed": 12345,
+    "mc_samples": 20,
+    "delivered_checkpoint": "epoch_100 last epoch, no val/test model selection",
+    "parallel_train_wall_seconds": 11.399,
+    "threads_per_process": 8,
+    "parallel_processes": 4
+  },
+  "code_at_training": {
+    "honest_mapping": "Training was run from an uncommitted working tree. HEAD was 36ffabc747b720b48aca25ff44039b1244a5bf5a (initial .gitignore only). A later local organization commit must not be described as the training commit.",
+    "git_head_at_training": "36ffabc747b720b48aca25ff44039b1244a5bf5a",
+    "training_commit": null,
+    "source_snapshots": {
+      "data_prep.py": {
+        "sha256": "a212418acc4c1b82c6ab9c22df7bf382fee473e52147af24c728d6e1d70a956c",
+        "size_bytes": 1352,
+        "unchanged_across_both_runs": true
+      },
+      "vae_model.py": {
+        "sha256": "f7071600f89e9ca7f1a4dc96de03131be4c4026fb3df57bf663f56d082928a33",
+        "size_bytes": 4140,
+        "unchanged_across_both_runs": true
+      },
+      "run_p1.py": {
+        "sha256": "082f2c4f5282a3e9480c1084d6e4d623bfd508bdbf74fa439ea833297377ec02",
+        "size_bytes": 30935,
+        "note": "This earlier run_p1.py did not yet have --epochs/--run-dir. Preserved at experiments/source_snapshots/run_p1.py.100epoch. It is not the current project run_p1.py."
+      }
+    },
+    "historical_command": "CUDA_VISIBLE_DEVICES=\"\" P1_NUM_THREADS=8 .venv/bin/python run_p1.py all   # default 100 epochs, wrote models/ and results/ in the project; do not rerun"
+  },
+  "test_metrics_rounded_4dp": {
+    "0": {
+      "recon_nll": 16.99891281,
+      "kl": 48.24549103,
+      "neg_elbo": 65.24440384
+    },
+    "0.1": {
+      "recon_nll": 17.317276,
+      "kl": 6.44035912,
+      "neg_elbo": 23.75763512
+    },
+    "1": {
+      "recon_nll": 18.25355911,
+      "kl": 2.60287118,
+      "neg_elbo": 20.85643029
+    },
+    "4": {
+      "recon_nll": 24.21554375,
+      "kl": 0.25271904,
+      "neg_elbo": 24.46826279
+    }
+  },
+  "files": [
+    {
+      "relative_path": "data/test_idx.npy",
+      "size_bytes": 3008,
+      "sha256": "905ab2b97d643e65385dabc640a860574e908d2d7ceef6ec84b28953b7bb1f05",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/data/test_idx.npy",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/data/test_idx.npy",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "data/train_idx.npy",
+      "size_bytes": 8752,
+      "sha256": "7125c2eda4bee502e124322a1c96cebfdf2890c282d4fc3ae8fb9bf0992ae77a",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/data/train_idx.npy",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/data/train_idx.npy",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "data/val_idx.npy",
+      "size_bytes": 3000,
+      "sha256": "d926de47c299c758f386e9ade49744079dd8c60cbe5bb5afddf37a23ac4efad9",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/data/val_idx.npy",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/data/val_idx.npy",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "data/x_all.npy",
+      "size_bytes": 460160,
+      "sha256": "127dbaf019d78fb8f95e5128bfa2a5ee08fb8f9f1809ab0eb2adf16c172ff348",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/data/x_all.npy",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/data/x_all.npy",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "data/y_all.npy",
+      "size_bytes": 14504,
+      "sha256": "0e1c5e26d7ec59f910975e2cd61b6b76bc67b4bfaa8a4233726a6038d8e62a2c",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/data/y_all.npy",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/data/y_all.npy",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "models/beta0.pt",
+      "size_bytes": 73573,
+      "sha256": "41b73745ee7f8a846389c3859872319e18640ce7448c770ad042710f480f1368",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/models/beta0.pt",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/models/beta0.pt",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "models/beta0p1.pt",
+      "size_bytes": 73669,
+      "sha256": "7379e6733947ccb9426a1fa07557fdb84cf2d05442c1ff95d2bc1f5405fc64f4",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/models/beta0p1.pt",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/models/beta0p1.pt",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "models/beta1.pt",
+      "size_bytes": 73573,
+      "sha256": "d9ab193252867e29a4b7d69a2eeb8f7e124e45bdc8ba668971542d7a0f3de783",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/models/beta1.pt",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/models/beta1.pt",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "models/beta4.pt",
+      "size_bytes": 73573,
+      "sha256": "a9a450026d9ba419ec80bed350b1444ab8f714e770820286057c2f40b69ba90e",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/models/beta4.pt",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/models/beta4.pt",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/ANALYSIS.md",
+      "size_bytes": 7440,
+      "sha256": "3c90fb932c25686b87102149bde174bbde659f00baaf9e1cb58870250e478f2c",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/ANALYSIS.md",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/ANALYSIS.md",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/config.json",
+      "size_bytes": 4505,
+      "sha256": "dcdb209e9ff686694ea5c2eb5b71763f41aeba5ea6d811a35a3a9daf7843e9a2",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/config.json",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/config.json",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/beta0_interp.png",
+      "size_bytes": 48447,
+      "sha256": "7d5c0bee791efdcff872310deb869e82991283dc795d08237fda33e8b6d9c846",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/beta0_interp.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/beta0_interp.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/beta0_mu_scatter.png",
+      "size_bytes": 79971,
+      "sha256": "82140ea2da6c05f88c53c70fed54815e06a103f2e12cb495ac90721e2ad37ab8",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/beta0_mu_scatter.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/beta0_mu_scatter.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/beta0_prior.png",
+      "size_bytes": 30927,
+      "sha256": "bf76ea8bfd18f914e5f3eca6287d1b276684e3fdcce476deae4a7b47ee59c153",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/beta0_prior.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/beta0_prior.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/beta0_recon.png",
+      "size_bytes": 37761,
+      "sha256": "f3a955d182813ff3df1ae0fffaaf0f79fccbd8cf60ebdd344c8feb79732d1472",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/beta0_recon.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/beta0_recon.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/beta0p1_interp.png",
+      "size_bytes": 48740,
+      "sha256": "70d17ad8f96da5eda3c20533b259837af3b12aeb73ce431229d569399c32543b",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/beta0p1_interp.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/beta0p1_interp.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/beta0p1_mu_scatter.png",
+      "size_bytes": 75663,
+      "sha256": "c9a0c8bfb33a3dd77994647412295aba0a21d34d38e708a303905e5cb344ce4f",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/beta0p1_mu_scatter.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/beta0p1_mu_scatter.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/beta0p1_prior.png",
+      "size_bytes": 30472,
+      "sha256": "e5b5aa3658d90ce62ed61de67a323ee967dfbbfa5fb4f9bb20ccdd0e1b1f1ea6",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/beta0p1_prior.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/beta0p1_prior.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/beta0p1_recon.png",
+      "size_bytes": 38097,
+      "sha256": "6cc8120c2b686fd531b284e6b64e9e37c3730653ed3621b968590eb4a00af9d2",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/beta0p1_recon.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/beta0p1_recon.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/beta1_interp.png",
+      "size_bytes": 48237,
+      "sha256": "4470939cd326ab379561fa65c25624154f661261ef3ba8497ccb17c4376db36a",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/beta1_interp.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/beta1_interp.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/beta1_mu_scatter.png",
+      "size_bytes": 66896,
+      "sha256": "11a8510b5e674a4d0e594bba683083202da55f19cb4043944db685306e1c625a",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/beta1_mu_scatter.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/beta1_mu_scatter.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/beta1_prior.png",
+      "size_bytes": 30053,
+      "sha256": "97b970975b578e0639beaf1ffe6a227ce72fcc86073559125f18389beaf2c65d",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/beta1_prior.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/beta1_prior.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/beta1_recon.png",
+      "size_bytes": 37661,
+      "sha256": "0bd5ccca655e6407aa3646e8c1a2a7b0699a65c69a6649e84f92d9a7c40de667",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/beta1_recon.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/beta1_recon.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/beta4_interp.png",
+      "size_bytes": 47735,
+      "sha256": "2dd6568d533dfeaaac2c5fde59305b8bff9378f28a4758c856a5d3f55f3927cd",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/beta4_interp.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/beta4_interp.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/beta4_mu_scatter.png",
+      "size_bytes": 53515,
+      "sha256": "45f3cf49b28f5c05cc3912cffb583b27e3ff71773e9df7fb4fc9289564cc337f",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/beta4_mu_scatter.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/beta4_mu_scatter.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/beta4_prior.png",
+      "size_bytes": 30239,
+      "sha256": "6e1eada5830d9063003bad46d5e61fe1ebeb973ef90639a0e2681266081b42e0",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/beta4_prior.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/beta4_prior.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/beta4_recon.png",
+      "size_bytes": 37470,
+      "sha256": "2cd6d26cd46f24f127ba3a8b2a64e143fe5ebae8b4016da536d1921b0c5daa53",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/beta4_recon.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/beta4_recon.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/figs/supplementary/val_monitor_curves.png",
+      "size_bytes": 104801,
+      "sha256": "fe33140bb9416707d1ff078d028c91a43d5ed2faa810610ab996421d405717e1",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/figs/supplementary/val_monitor_curves.png",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/figs/supplementary/val_monitor_curves.png",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/latent_codes/beta0_test_latent.npz",
+      "size_bytes": 12504,
+      "sha256": "1a9cce394dd6f9bf9dfaffaee4b0db0fd0d2731372010cb8013b6d35236fb26b",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/latent_codes/beta0_test_latent.npz",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/latent_codes/beta0_test_latent.npz",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/latent_codes/beta0p1_test_latent.npz",
+      "size_bytes": 12504,
+      "sha256": "9adacc6154342c2278aa8041c09962d6cddd19f26d6f5ca9ac3940e2b9c779fb",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/latent_codes/beta0p1_test_latent.npz",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/latent_codes/beta0p1_test_latent.npz",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/latent_codes/beta1_test_latent.npz",
+      "size_bytes": 12504,
+      "sha256": "50ef2600852d9d5df09c52e042cddb5af7656e235bb55a968ec87026e86cb51d",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/latent_codes/beta1_test_latent.npz",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/latent_codes/beta1_test_latent.npz",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/latent_codes/beta4_test_latent.npz",
+      "size_bytes": 12504,
+      "sha256": "36a08233be6c7992bb84310e459d7b3218ef142c6e135268af47eb991f25d2bc",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/latent_codes/beta4_test_latent.npz",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/latent_codes/beta4_test_latent.npz",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/latent_codes/shared_prior_z.npy",
+      "size_bytes": 256,
+      "sha256": "1db19b3ab2c8c330e23b974f948f76363be11eb614bee5cfe86939fc7cd04554",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/latent_codes/shared_prior_z.npy",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/latent_codes/shared_prior_z.npy",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/latent_codes/viz_indices.json",
+      "size_bytes": 481,
+      "sha256": "199483ef79d7b00646b9dafe22f2f923bb75dd319300d3719059f987ffe686f8",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/latent_codes/viz_indices.json",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/latent_codes/viz_indices.json",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/correctness_tests.txt",
+      "size_bytes": 228,
+      "sha256": "f39a7f0d36be7e996031a46230db8e20b890fb90d8bc91434089d4485af44aad",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/correctness_tests.txt",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/correctness_tests.txt",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/history_beta0.json",
+      "size_bytes": 33368,
+      "sha256": "66d361469b9fc9f50c1256f8d8d8d18a658556822d07adb898ff55092ef7a530",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/history_beta0.json",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/history_beta0.json",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/history_beta0p1.json",
+      "size_bytes": 33292,
+      "sha256": "14281354987c9aad4b1fa9b2ec0be16256e9fb49e9850f4bf114f66185f8d60b",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/history_beta0p1.json",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/history_beta0p1.json",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/history_beta1.json",
+      "size_bytes": 33387,
+      "sha256": "af0448f695ad5d6e2df625c89a39ab2068e769565858cb32067488249a4f61ec",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/history_beta1.json",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/history_beta1.json",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/history_beta4.json",
+      "size_bytes": 33640,
+      "sha256": "7271816d3a29fbbbe4f1d9588d9b09a74f1ed4ad2f5ba29b42090f1d89fe833f",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/history_beta4.json",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/history_beta4.json",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/observations.json",
+      "size_bytes": 4940,
+      "sha256": "a74f2aff9058fb7376372037dffdded705cc12f05f7dd682cc04af09722ad67f",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/observations.json",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/observations.json",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/test_metrics.csv",
+      "size_bytes": 366,
+      "sha256": "c05c2b1f2ac55c26d676d6dcf8e6b7c6e1a8e1fe5af68f6861e5cb723768352c",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/test_metrics.csv",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/test_metrics.csv",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/test_metrics.md",
+      "size_bytes": 846,
+      "sha256": "216f1a2c397c467d301c26c920e9e54aaee5935ba3171042f5885be290d8fb8c",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/test_metrics.md",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/test_metrics.md",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/timing.json",
+      "size_bytes": 1377,
+      "sha256": "cf265ab0ecd8eb1b9eb47c55d143854852c73678152fbffd06ce4423dd1e8e76",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/timing.json",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/timing.json",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/timing_estimate.json",
+      "size_bytes": 994,
+      "sha256": "a45a7910a788c3e4c4ec148274a2660a8ff48117348d2b2a3518e1d9091b60a6",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/timing_estimate.json",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/timing_estimate.json",
+      "in_git": true,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/timing_probe_threads1.log",
+      "size_bytes": 102,
+      "sha256": "a27d8240000fceb0a806e01fab16b0f8c149833485123d045c1396ac43f83a67",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/timing_probe_threads1.log",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/timing_probe_threads1.log",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/timing_probe_threads2.log",
+      "size_bytes": 103,
+      "sha256": "f55dd00bb0bde926c8e35f48c14d69f4aaa056b3a0b3e67f1e8f3b1f3fa8c1c8",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/timing_probe_threads2.log",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/timing_probe_threads2.log",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/timing_probe_threads4.log",
+      "size_bytes": 103,
+      "sha256": "5fba9f67b3f624408a1b489d2565d94e8b7ca842dedd75ea449045fde1c80d18",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/timing_probe_threads4.log",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/timing_probe_threads4.log",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/timing_probe_threads8.log",
+      "size_bytes": 103,
+      "sha256": "485db2d24d50392804aedbd9684788a2989e603ee03c7b809da8ca5e8599657c",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/timing_probe_threads8.log",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/timing_probe_threads8.log",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/train_beta0.log",
+      "size_bytes": 1161,
+      "sha256": "7f8a38a826d9d4bfb0c674c697e03c8022916e04d691697fde9ee7556515b16f",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/train_beta0.log",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/train_beta0.log",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/train_beta0p1.log",
+      "size_bytes": 1165,
+      "sha256": "92e8776349d4a49529e6fe03ec3df39c614e62a9cc41157f67c7f7575026643a",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/train_beta0p1.log",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/train_beta0p1.log",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/train_beta1.log",
+      "size_bytes": 1141,
+      "sha256": "73021e9573444047c02fc21aefa9a28c5455ac450759d054103c529f12912275",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/train_beta1.log",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/train_beta1.log",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    },
+    {
+      "relative_path": "results/metrics/train_beta4.log",
+      "size_bytes": 1141,
+      "sha256": "04802d4056dd477a539d9c3b832113bc974ee36678b90e8c1b9a3d71d146884a",
+      "original_path": "/vepfs/wangshilong/code/beta-vae-digits/results/metrics/train_beta4.log",
+      "box_delivered_snapshot": "/workspace/exports/p1-beta-vae-final/results/metrics/train_beta4.log",
+      "in_git": false,
+      "notes": "original file left in place; do not modify"
+    }
+  ]
+}
