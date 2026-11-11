@@ -1,8 +1,0 @@
-{
-  "cpu_count": 13,
-  "chosen_threads_per_process": 8,
-  "selection_rule": "fixed to P1_NUM_THREADS so the 500-epoch run matches the 100-epoch baseline; thread count was not reselected",
-  "parallel_processes": 4,
-  "approx_total_threads_when_parallel": 32,
-  "epochs": 500
-}

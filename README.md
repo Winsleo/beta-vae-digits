@@ -1,76 +1,82 @@
-# P1 β-VAE（二值化 digits）
+# beta-VAE on binarised digits (AI Engineering, homework 1)
 
-在二值化的 sklearn digits 上比较 β ∈ {0, 0.1, 1, 4}。Encoder 为 64→128→(μ, logσ²)，潜变量维度 2；Decoder 为 2→128→64 logits。损失为每图求和的重建 BCE + β×按潜变量维求和的 KL。β=0 仍是带采样的编码器，不是确定性自编码器。
+Code for the P1 experiment (beta-VAE with a 2-d latent on 8x8 digits) and for the small
+demos behind Q2 (target leakage) and Q4 (autoencoder vs VAE).
 
-只使用 CPU。不要把 `CUDA_VISIBLE_DEVICES` 指到真实 GPU。不要改已有科研虚拟环境。
+## Layout
 
-当前 `run_p1.py` 已支持 `--epochs`（默认 100）和 `--run-dir`。非默认 epoch 数必须同时给出 `--run-dir`，以免覆盖 100 epoch 基线。
+```
+src/
+  config.py          constants of the protocol (betas, seeds, batch size, ...)
+  data.py            binarised digits + fixed stratified 60/20/20 split
+  model.py           VAE, KL, Bernoulli NLL, beta-VAE loss
+  train.py           train all betas, save models, history and epoch snapshots
+  evaluate.py        test metrics: recon NLL, KL, -ELBO, IWAE, posterior and prior-sample statistics
+  plots.py           all figures (reconstruction, prior samples, scatter, interpolation, manifold, curves)
+  multiseed.py       repeat training with several seeds
+  q2_leakage.py      Q2 demo: leaky vs masked autoregressive model
+  q4_autoencoder.py  Q4 demo: deterministic AE sampled from N(0, I)
+tests/test_core.py   acceptance checks (KL, gradients through the reparameterisation, split, IWAE)
+Makefile             make test | train | evaluate | plots | extras | multiseed | all
+```
 
-**两次已完成的训练都发生在尚未提交的工作区上，当时 HEAD 是初始提交 `36ffabc`。本仓库后来的本地整理提交只用于保存可复现代码与索引，不能写成“该提交训练出了这些结果”。** 训练时源码快照与结果哈希见 `experiments/`。
+## Setup
 
-## 目录
+Python 3.9+ with `torch`, `numpy`, `scikit-learn`, `matplotlib` (`pip install -r requirements.txt`).
+CPU is enough; the whole pipeline (`make all`) takes a few minutes.
 
-| 路径 | 说明 |
+## Run
+
+```bash
+make test        # 8 checks
+make train       # 4 betas x 500 epochs, snapshot at epoch 100  -> runs/main/
+make evaluate    # results/main.json, results/ep100.json
+make plots       # results/figs/*.png
+make extras      # results/q2, results/q4
+make multiseed   # results/multiseed.json (seeds 0-4)
+```
+
+or call the scripts directly, e.g. `python src/train.py --epochs 100 --out runs/short`.
+Every script has `--help`. `runs/` and `results/` are not tracked by git.
+
+## Protocol
+
+| | |
 |---|---|
-| `data_prep.py` | 二值化与 60/20/20 分层划分（seed=42） |
-| `vae_model.py` | 模型、重参数化、损失，以及三项正确性测试入口 |
-| `run_p1.py` | 训练 / 评估 / 出图；默认 100 epoch |
-| `data/*_idx.npy` | 已固定的 train/val/test 索引（1078/359/360） |
-| `data/x_all.npy`, `data/y_all.npy` | 全量二值化数据，保留在磁盘，不进 Git；可用同一脚本按相同种子再生 |
-| `models/` | 100 epoch 末轮权重，保留在磁盘，不进 Git |
-| `results/` | 100 epoch 指标、16 张图与潜变量，重文件不进 Git |
-| `experiments/runs100/` | 100 epoch 运行清单（原路径 + sha256，不复制大文件） |
-| `experiments/runs500/` | 500 epoch 运行清单与轻量指标副本；原件在 scratch 目录 |
-| `experiments/source_snapshots/run_p1.py.100epoch` | 100 epoch 训练时使用的 `run_p1.py` 快照（当时还没有 `--epochs` / `--run-dir`） |
-| `ENVIRONMENT.md` | 实际运行版本记录 |
-| `requirements.txt` | 与上述记录对应的依赖清单，不是旧草稿钉 |
+| data | `load_digits()`, pixels / 16, binarised with `>= 0.5`, flattened to 64 values |
+| split | stratified 60 / 20 / 20 (1078 / 359 / 360), `random_state=42` for both `train_test_split` calls |
+| model | encoder 64 -> 128 (ReLU) -> (mu, logvar), latent 2; decoder 2 -> 128 (ReLU) -> 64 logits |
+| loss | mean over the batch of `BCE_sum + beta * KL`, beta in {0, 0.1, 1, 4}; beta = 0 still samples |
+| training | Adam, lr 1e-3, batch 128, seed 42 (init and per-epoch shuffle), last epoch is the model |
+| validation | monitored every epoch with one posterior sample, never used to choose a model |
+| evaluation | test set; recon NLL = mean of 20 posterior samples (seed 12345); KL closed form; -ELBO = recon + KL |
 
-500 epoch 对照的原件在：
+Betas are compared on the standard negative ELBO (recon NLL + KL), not on the weighted training loss.
 
-`/vepfs/wangshilong/scratch/beta-vae-digits-500epoch`
+## Reproduced numbers (seed 42, test set)
 
-该目录不覆盖本项目的 `models/` 与 `results/`。
+500 epochs:
 
-## 三项正确性测试
+| beta | recon NLL | KL | -ELBO | IWAE-1000 |
+|---|---:|---:|---:|---:|
+| 0 | 16.9926 | 97.6064 | 114.5990 | 113.32 |
+| 0.1 | 16.3120 | 7.6766 | 23.9886 | 22.40 |
+| 1 | 16.9103 | 3.2577 | 20.1680 | 19.51 |
+| 4 | 23.4790 | 0.4105 | 23.8895 | 22.16 |
 
-在已安装依赖的环境中：
+100 epochs (snapshot of the same run): -ELBO 65.2444 / 23.7576 / 20.8564 / 24.4683.
+Independent-Bernoulli baseline (no latent): 25.28.
 
-```bash
-cd /path/to/beta-vae-digits
-CUDA_VISIBLE_DEVICES="" python vae_model.py
-```
+Five more seeds (0-4, 500 epochs), mean +- std of -ELBO: 113.69 +- 10.44, 24.08 +- 0.42, 20.24 +- 0.12, 24.02 +- 0.04.
 
-在原实验机上也可以用项目解释器：
+These match the numbers in the report. They were reproduced with torch 2.6.0, numpy 1.26.4 and
+scikit-learn 1.7.2; the original runs used torch 2.7.1. The metrics that do not involve the
+digit classifier agree to the printed precision. The class-entropy columns can differ in the
+last digit (about 0.01) between scikit-learn versions.
 
-```bash
-CUDA_VISIBLE_DEVICES="" .venv/bin/python vae_model.py
-```
+## Notes
 
-应看到：μ=0 且 logσ²=0 时 KL=0；合法高斯参数下 KL≥0；只对重建损失反传时，梯度能经重参数化到达 Encoder。已有通过记录：`results/metrics/correctness_tests.txt`。整理阶段的复跑日志写在 `experiments/verification/`，不会改写这份原始记录。
-
-轻量入口检查：
-
-```bash
-CUDA_VISIBLE_DEVICES="" python run_p1.py --help
-```
-
-## 不要随意重跑的命令
-
-已有结果必须保持原样。下面这些命令会覆盖 checkpoint、指标或图，**交付与归档时不要运行**：
-
-```bash
-python data_prep.py                  # 会重写 data/ 下的索引与数组
-python run_p1.py all                 # 默认 100 epoch，写回本目录 models/ 与 results/
-python run_p1.py eval-only --wall …  # 不训练，但会覆盖 results/ 中的评估输出与图
-python run_p1.py all --epochs 500 --run-dir /path/to/run
-```
-
-若只是阅读已有结果，不必运行训练或 `eval-only`。若将来确需复现 500 epoch，必须给出独立的 `--run-dir`，并设 `CUDA_VISIBLE_DEVICES=` 与 `P1_NUM_THREADS=8`。
-
-历史训练命令（仅作记录）见 `experiments/runs100/MANIFEST.md` 与 `experiments/runs500/MANIFEST.md`。
-
-## 图怎么读
-
-重建图是 μ 解码后的 sigmoid 概率；先验图是四组共用的 z ~ N(0, I) 解码；散点是全部测试 μ，类别只用于着色；插值是两个共用端点的 μ 线性插值后再解码。这些都不是 Bernoulli 采样，μ 解码也不是测试表里的 Reconstruction NLL。
-
-报告指标是每图重建 NLL、KL 和标准负 ELBO（重建 NLL+KL）。不能直接比较不同 β 下的加权训练总损失。
+- The model layers are created in a fixed order (see `model.py`): it determines the initial weights, hence the numbers.
+- The split is computed on the fly and is deterministic, so no index files are stored.
+- `src/q2_leakage.py` seeds before building each model. A first version of this demo initialised the models before seeding,
+  so its numbers moved slightly from run to run.

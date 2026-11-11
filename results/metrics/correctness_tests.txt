@@ -1,5 +1,0 @@
-✓ KL correctness check 1: μ=0, logσ²=0 => KL=0
-✓ KL correctness check 2: KL≥0 for valid Gaussian parameters
-✓ Gradient backprop check: reconstruction loss backpropagates to encoder
-
-✓ All correctness checks passed!

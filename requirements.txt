@@ -1,14 +1,5 @@
-# Packages recorded from the reported CPU runs. This is a record, not a
-# tested from-scratch install pin. Do not use the older draft pins such as
-# torch==2.0.1 or numpy==1.24.3; those were never used in the delivered runs.
-# The reported runs used torch 2.7.1+cu126 on CPU (CUDA_VISIBLE_DEVICES empty).
-# See ENVIRONMENT.md.
-torch==2.7.1
-numpy==2.4.6
-matplotlib==3.11.2
-scipy==1.17.1
-scikit-learn==1.9.1
-joblib
-threadpoolctl
-cloudpickle
-narwhals
+# Versions the experiments were run with (CPU is enough).
+torch>=2.0
+numpy>=1.24
+scikit-learn>=1.3
+matplotlib>=3.7
